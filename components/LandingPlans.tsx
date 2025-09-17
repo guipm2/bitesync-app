@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, useMotionValue, useTransform, useInView } from "framer-motion"
 import React, { useEffect, useRef, useState } from 'react'
+import MotionButton from './ui/motion-button'
 
 type Props = { isActive?: boolean }
 
@@ -64,8 +65,8 @@ export default function LandingPlans({ isActive }: Props) {
         </div>
 
         <motion.div variants={child} className="flex gap-6 justify-center mt-8">
-          <a href="#encomende" className="px-6 py-2 rounded-full bg-white/10 text-white font-semibold hover:bg-white/12 transition text-sm">Encomende Agora</a>
-          <a href="/auth/sign-up" className="px-6 py-2 rounded-full bg-white text-black font-semibold hover:brightness-95 transition text-sm">Assine Já</a>
+          <MotionButton href="#encomende" className="px-6 py-2 rounded-full bg-white/10 text-white font-semibold hover:bg-white/12 transition text-sm">Encomende Agora</MotionButton>
+          <MotionButton href="/auth/sign-up" className="px-6 py-2 rounded-full bg-white text-black font-semibold hover:brightness-95 transition text-sm">Assine Já</MotionButton>
         </motion.div>
       </div>
     </motion.section>
@@ -102,7 +103,7 @@ function PriceCard({ plan, reduced }: { plan: { name: string; price: string; per
       <ul className="text-xs text-white/80 space-y-1 mb-2">
         {plan.perks.map((k) => <li key={k}>• {k}</li>)}
       </ul>
-      <a href="/auth/sign-up" className="inline-block mt-2 text-sm bg-white text-black px-3 py-1 rounded">Assine</a>
+      <MotionButton href="/auth/sign-up" className="inline-block mt-2 text-sm bg-white text-black px-3 py-1 rounded">Assine</MotionButton>
     </motion.div>
   )
 }

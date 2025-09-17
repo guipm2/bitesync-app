@@ -37,7 +37,7 @@ export default function Header({ onNavigateTo }: HeaderProps) {
               onNavigateTo('diferencial')
             }
           }}
-          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
+          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200 select-none"
         >
           Diferencial
         </a>
@@ -49,7 +49,7 @@ export default function Header({ onNavigateTo }: HeaderProps) {
               onNavigateTo('precos')
             }
           }}
-          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
+          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200 select-none"
         >
           Preços
         </a>
@@ -61,7 +61,7 @@ export default function Header({ onNavigateTo }: HeaderProps) {
               onNavigateTo('faq')
             }
           }}
-          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
+          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200 select-none"
         >
           FAQ
         </a>

@@ -70,7 +70,7 @@ export default function HeroContent({ visible = true, onNavigateTo }: HeroProps)
           </MotionButton>
         </motion.div>
 
-        <motion.div variants={child} className="mt-8 flex justify-center" style={{ pointerEvents: 'auto' }}>
+          <motion.div variants={child} className="mt-8 flex justify-center" style={{ pointerEvents: 'auto' }}>
           <button
             aria-label="Scroll down"
             onClick={() => {
@@ -78,7 +78,7 @@ export default function HeroContent({ visible = true, onNavigateTo }: HeroProps)
               const next = document.getElementById('diferencial')
               if (next) next.scrollIntoView({ behavior: 'smooth' })
             }}
-            className="flex items-center justify-center w-10 h-10 rounded-full border border-white/30 text-white/90 hover:bg-white/6 transition"
+              className="flex items-center justify-center w-10 h-10 rounded-full border border-white/30 text-white/90 hover:bg-white/6 transition select-none"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />

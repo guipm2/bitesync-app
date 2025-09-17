@@ -16,17 +16,19 @@ export default function MotionButton({ children, className = '', href, onClick, 
   const reduce = useReducedMotion()
   const hover = reduce ? undefined : { scale: 1.04 }
   const tap = reduce ? undefined : { scale: 0.98 }
+  // ensure the clickable element is not text-selectable and covers the full area
+  const mergedClassName = `${className} select-none`
 
   if (href) {
     return (
-      <motion.a href={href} whileHover={hover} whileTap={tap} className={className} onClick={onClick}>
+      <motion.a href={href} whileHover={hover} whileTap={tap} className={mergedClassName} onClick={onClick}>
         {children}
       </motion.a>
     )
   }
 
   return (
-    <motion.button type={type} disabled={disabled} whileHover={hover} whileTap={tap} className={className} onClick={onClick}>
+    <motion.button type={type} disabled={disabled} whileHover={hover} whileTap={tap} className={mergedClassName} onClick={onClick}>
       {children}
     </motion.button>
   )
