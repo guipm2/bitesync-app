@@ -30,6 +30,18 @@
 			"type": "shell",
 			"command": "npm run -s build",
 			"group": "build"
+		},
+		{
+			"label": "Type-check after env key alignment",
+			"type": "shell",
+			"command": "npm run -s build",
+			"group": "build"
+		},
+		{
+			"label": "Build after adding health route",
+			"type": "shell",
+			"command": "npm run -s build",
+			"group": "build"
 		}
 	]
 }

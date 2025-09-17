@@ -2,7 +2,8 @@ import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 
 const supabaseUrl = process.env.SUPABASE_URL!
-const supabaseKey = process.env.SUPABASE_KEY!
+// Use anon key on the server to match middleware/client and avoid Edge/runtime mismatches
+const supabaseKey = process.env.SUPABASE_ANON_KEY!
 
 
 /**
