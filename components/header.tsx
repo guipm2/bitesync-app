@@ -1,57 +1,56 @@
 "use client"
 
+import { useState } from 'react'
+import Image from 'next/image'
 import MotionButton from './ui/motion-button'
 
 export default function Header() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-6 bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6 bg-transparent">
       {/* Logo */}
       <div className="flex items-center">
-        <svg
-          fill="currentColor"
-          viewBox="0 0 147 70"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          className="size-10 translate-x-[-0.5px] text-white"
-        >
-          <path d="M56 50.2031V14H70V60.1562C70 65.5928 65.5928 70 60.1562 70C57.5605 70 54.9982 68.9992 53.1562 67.1573L0 14H19.7969L56 50.2031Z"></path>
-          <path d="M147 56H133V23.9531L100.953 56H133V70H96.6875C85.8144 70 77 61.1856 77 50.3125V14H91V46.1562L123.156 14H91V0H127.312C138.186 0 147 8.81439 147 19.6875V56Z"></path>
-        </svg>
+        <a href="#hero-spacer" aria-label="BiteSync home">
+          <Image src="/logo.png" alt="BiteSync" width={140} height={40} priority className="object-contain" />
+        </a>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex items-center space-x-2">
-        <a
-          href="#diferencial"
-          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
-        >
-          Diferencial
-        </a>
-        <a
-          href="#precos"
-          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
-        >
-          Preços
-        </a>
-        <a
-          href="#faq"
-          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
-        >
-          FAQ
-        </a>
+      {/* Navigation - hidden on small screens */}
+      <nav className="hidden md:flex items-center space-x-2">
+        <a href="#diferencial" className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200">Diferencial</a>
+        <a href="#precos" className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200">Preços</a>
+        <a href="#faq" className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200">FAQ</a>
       </nav>
 
-      {/* Login Button Group with Arrow */}
-      <div id="gooey-btn" className="relative flex items-center group" style={{ filter: "url(#gooey-filter)" }}>
-        <MotionButton className="absolute right-0 px-2.5 py-2 rounded-full bg-white text-black font-normal text-xs transition-all duration-300 hover:bg-white/90 cursor-pointer h-8 flex items-center justify-center -translate-x-10 group-hover:-translate-x-19 z-0">
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
+      {/* Mobile menu button and Login group */}
+      <div className="flex items-center gap-3">
+        <div className="hidden md:flex" id="gooey-btn" style={{ filter: 'url(#gooey-filter)' }}>
+          <MotionButton className="absolute right-0 px-2.5 py-2 rounded-full bg-white text-black font-normal text-xs transition-all duration-300 hover:bg-white/90 cursor-pointer h-8 flex items-center justify-center -translate-x-10 group-hover:-translate-x-19 z-0">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
+          </MotionButton>
+          <MotionButton href="/auth/login" className="px-6 py-2 rounded-full bg-white text-black font-normal text-xs transition-all duration-300 hover:bg-white/90 cursor-pointer h-8 flex items-center z-10">Login</MotionButton>
+        </div>
+
+        {/* Mobile menu toggle */}
+        <button onClick={() => setOpen((v) => !v)} className="md:hidden p-2 rounded-lg bg-white/6">
+          <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-        </MotionButton>
-        <MotionButton href="/auth/login" className="px-6 py-2 rounded-full bg-white text-black font-normal text-xs transition-all duration-300 hover:bg-white/90 cursor-pointer h-8 flex items-center z-10">
-          Login
-        </MotionButton>
+        </button>
       </div>
+
+      {/* Mobile dropdown */}
+      {open && (
+        <div className="absolute right-4 top-full mt-2 w-48 bg-black/60 rounded-lg p-3 backdrop-blur-md z-50 md:hidden">
+          <a href="#diferencial" className="block px-3 py-2 text-white/90 rounded">Diferencial</a>
+          <a href="#precos" className="block px-3 py-2 text-white/90 rounded">Preços</a>
+          <a href="#faq" className="block px-3 py-2 text-white/90 rounded">FAQ</a>
+          <a href="/auth/login" className="block px-3 py-2 text-white/90 rounded">Login</a>
+        </div>
+      )}
     </header>
   )
 }

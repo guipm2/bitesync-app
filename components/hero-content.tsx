@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion"
 import MotionButton from './ui/motion-button'
+import { useRouter } from 'next/navigation'
 
 type HeroProps = { visible?: boolean; onNavigateTo?: (id: string) => void }
 
 export default function HeroContent({ visible = true, onNavigateTo }: HeroProps) {
+  const router = useRouter()
   const container = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { when: 'beforeChildren', staggerChildren: 0.08 } },
@@ -30,8 +32,8 @@ export default function HeroContent({ visible = true, onNavigateTo }: HeroProps)
           <span className="text-white/90 text-sm font-light relative z-10">🦷 Monitore remotamente</span>
         </motion.div>
 
-        <motion.h1 variants={child} className="text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight font-bold text-white mb-3" style={{ pointerEvents: 'auto', fontFamily: 'var(--font-rubik-mono-one)' }}>
-          <motion.span className="block font-bold tracking-tight text-white text-3xl md:text-5xl lg:text-6xl uppercase" variants={child}>BITESYNC</motion.span>
+        <motion.h1 variants={child} className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight font-bold text-white mb-3" style={{ pointerEvents: 'auto', fontFamily: 'var(--font-rubik-mono-one)' }}>
+          <motion.span className="block font-bold tracking-tight text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase" variants={child}>BITESYNC</motion.span>
         </motion.h1>
 
         <motion.h2 variants={child} className="text-3xl md:text-3xl lg:text-3xl leading-tight tracking-tight font-bold text-white mb-3">
@@ -57,7 +59,13 @@ export default function HeroContent({ visible = true, onNavigateTo }: HeroProps)
             Encomende já
           </MotionButton>
 
-          <MotionButton href="/auth/sign-up" className="px-8 py-3 rounded-full bg-white text-black font-medium text-sm transition-all duration-200 hover:bg-white/90">
+          <MotionButton
+            onClick={(e) => {
+              e.preventDefault()
+              router.push('/auth/sign-up')
+            }}
+            className="px-6 sm:px-8 py-2 sm:py-3 rounded-full bg-white text-black font-medium text-sm transition-all duration-200 hover:bg-white/90"
+          >
             Criar conta
           </MotionButton>
         </motion.div>
