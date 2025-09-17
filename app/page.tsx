@@ -61,11 +61,9 @@ export default function ShaderShowcase() {
 
   const handleNavClick = (index: number) => {
     if (!containerRef.current) return
-    // find the section id from the nav and scroll that element into view inside the scroll container
     const targetId = sections[index].id
     const target = containerRef.current.querySelector(`#${targetId}`) as HTMLElement | null
     if (target) {
-      // scroll the container so the target is at the top
       containerRef.current.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
     }
   }
@@ -89,32 +87,9 @@ export default function ShaderShowcase() {
     if (!containerRef.current) return
     const target = containerRef.current.querySelector(`#${id}`) as HTMLElement | null
     if (target) {
-      // focus the container to ensure pointer/scroll isn't trapped on another element
-      try {
-        containerRef.current.tabIndex = -1
-        containerRef.current.focus()
-      } catch {}
+      // Use smooth scroll only. Avoid focusing/blurring the container or adding temporary listeners
+      // which in some browsers/conditions can lead to a stuck scroll state.
       containerRef.current.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
-      // after the smooth scroll finishes, remove focus to avoid any trapped state
-      let removed = false
-      const onScroll = () => {
-        if (!containerRef.current) return
-        const reached = Math.abs(containerRef.current.scrollTop - target.offsetTop) < 8
-        if (reached && !removed) {
-          removed = true
-          try { containerRef.current.blur() } catch {}
-          containerRef.current.removeEventListener('scroll', onScroll)
-        }
-      }
-      containerRef.current.addEventListener('scroll', onScroll, { passive: true })
-      // fallback: if scroll doesn't reach in 500ms, clear focus anyway
-      setTimeout(() => {
-        if (!removed) {
-          removed = true
-          try { if (containerRef.current) containerRef.current.blur() } catch {}
-          try { if (containerRef.current) containerRef.current.removeEventListener('scroll', onScroll) } catch {}
-        }
-      }, 500)
     }
   }
 
