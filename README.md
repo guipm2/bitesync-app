@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BiteSync — app de monitoramento clínico (landing + painel)
 
-## Getting Started
+Este repositório contém a interface web do BiteSync: uma landing page interativa e um painel voltado para profissionais de saúde que utilizam o dispositivo BiteSync para coleta e visualização de leituras.
 
-First, run the development server:
+Resumo rápido
+- Framework: Next.js (App Router)
+- UI: React 19 + Tailwind CSS
+- Animações/UX: Framer Motion
+- UI primitives: Radix UI
+- Backend-as-a-Service: Supabase (@supabase/supabase-js)
+- Hospedagem recomendada: Vercel
+
+Stack e dependências principais
+- next (Next.js) — App Router
+- react / react-dom (React 19)
+- tailwindcss (v4)
+- framer-motion (animações)
+- @supabase/supabase-js (client)
+- @radix-ui/* (componentes acessíveis)
+- @paper-design/shaders-react (fundo shader)
+
+Scripts úteis (definidos em `package.json`)
+- dev: `pnpm dev` — roda o servidor em modo de desenvolvimento
+- build: `pnpm build` — build para produção
+- start: `pnpm start` — inicia a versão construída
+- lint: `pnpm lint`
+
+Pré-requisitos
+- Node.js 18+ recomendado
+- pnpm (recomendado) ou npm/yarn
+
+Instalação local
+1. Clone o repositório
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone git@github.com:guipm2/bitesync-app.git
+cd bitesync-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale dependências
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+# ou
+npm install
+# ou
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Variáveis de ambiente (IMPORTANTE)
+- Não comite variáveis de ambiente com segredos. Nunca envie arquivos `.env.local` ou `.env` para o repositório.
+- Há um arquivo `./.env.example` com as chaves/nomes esperados. Copie esse arquivo e preencha as variáveis no seu ambiente local:
 
-## Learn More
+```bash
+cp .env.example .env.local
+# editar .env.local com valores reais (ex: SUPABASE_URL, NEXT_PUBLIC_SUPABASE_KEY, etc.)
+```
 
-To learn more about Next.js, take a look at the following resources:
+- As variáveis `NEXT_PUBLIC_...` são expostas ao cliente (use apenas valores públicos lá). Chaves sensíveis (service role, secret keys) devem ficar apenas em variáveis sem o prefixo `NEXT_PUBLIC_` e em ambientes server-side.
+- O repositório já inclui `.gitignore` que ignora arquivos `.env*` para evitar commits acidentais.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Rodando em desenvolvimento
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dev
+# por padrão abrirá em http://localhost:3000 (ou outra porta se 3000 estiver em uso)
+```
 
-## Deploy on Vercel
+Build e execução em produção (local)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm build
+pnpm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Notas sobre arquitetura
+- A landing page usa um contêiner de scroll interno (desktop) com navegação programática entre seções.
+- O projeto usa componentes client/server do Next.js App Router; verifique os arquivos em `app/` para entradas e rotas.
+- O componente `components/ui/motion-button.tsx` é o primitivo de botão com animação (Framer Motion) — usamos ele para garantir comportamento consistente (não permitir seleção de texto, animações, e comportamento de link/button uniforme).
+
+Supabase
+- Variáveis esperadas (exemplos presentes em `.env.example`):
+  - SUPABASE_URL / NEXT_PUBLIC_SUPABASE_URL
+  - SUPABASE_KEY / NEXT_PUBLIC_SUPABASE_KEY / SUPABASE_ANON_KEY
+
+Deploy
+- Recomendamos usar Vercel para deploy contínuo (integração com GitHub). Configure as variáveis de ambiente no painel do Vercel (project settings) — aí sim você pode usar as chaves privadas no ambiente de produção.
+
+Contribuindo
+- Para mudanças maiores faça um branch, escreva commits atômicos e abra uma PR descrevendo as mudanças.
+
+Problemas comuns
+- Se o dev server não iniciar, verifique se a porta 3000 está em uso. O Next.js pode trocar de porta automaticamente.
+- Se a autenticação Supabase falhar localmente, confirme as variáveis em `.env.local` e verifique a URL/KEY.
+
+Contato
+- Para dúvidas sobre este repositório, abra uma issue ou entre em contato.
