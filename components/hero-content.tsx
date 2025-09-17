@@ -20,7 +20,7 @@ export default function HeroContent({ visible = true, onNavigateTo }: HeroProps)
 
   return (
     <motion.main
-      className="absolute inset-0 z-20 flex items-center justify-center px-6 md:px-16"
+      className="absolute inset-0 z-30 flex items-center justify-center px-6 md:px-16"
       initial="hidden"
       animate={visible ? 'visible' : 'hidden'}
       variants={container}

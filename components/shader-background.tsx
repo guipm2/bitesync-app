@@ -39,7 +39,7 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
   return (
     <div ref={containerRef} className="min-h-screen bg-black relative overflow-hidden">
       {/* SVG Filters */}
-      <svg className="absolute inset-0 w-0 h-0">
+  <svg className="absolute inset-0 w-0 h-0 pointer-events-none">
         <defs>
           <filter id="glass-effect" x="-50%" y="-50%" width="200%" height="200%">
             <feTurbulence baseFrequency="0.005" numOctaves="1" result="noise" />
@@ -68,13 +68,13 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
 
       {/* Background Shaders */}
       <MeshGradient
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full pointer-events-none"
         colors={["#ffffff", "#337591", "#84dcf4", "#224f62", "#73c0c2"]}
         speed={0.3}
         style={reduce ? undefined : { transform: `translateY(${offset * -40}px)` }}
       />
       <MeshGradient
-        className="absolute inset-0 w-full h-full opacity-60"
+        className="absolute inset-0 w-full h-full opacity-60 pointer-events-none"
         colors={["#337591", "#84dcf4", "#73c0c2", "#73c0c2"]}
         speed={0.2}
         style={reduce ? undefined : { transform: `translateY(${offset * -20}px)` }}

@@ -88,12 +88,39 @@ export default function ShaderShowcase() {
   const scrollToId = (id: string) => {
     if (!containerRef.current) return
     const target = containerRef.current.querySelector(`#${id}`) as HTMLElement | null
-    if (target) containerRef.current.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
+    if (target) {
+      // focus the container to ensure pointer/scroll isn't trapped on another element
+      try {
+        containerRef.current.tabIndex = -1
+        containerRef.current.focus()
+      } catch {}
+      containerRef.current.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
+      // after the smooth scroll finishes, remove focus to avoid any trapped state
+      let removed = false
+      const onScroll = () => {
+        if (!containerRef.current) return
+        const reached = Math.abs(containerRef.current.scrollTop - target.offsetTop) < 8
+        if (reached && !removed) {
+          removed = true
+          try { containerRef.current.blur() } catch {}
+          containerRef.current.removeEventListener('scroll', onScroll)
+        }
+      }
+      containerRef.current.addEventListener('scroll', onScroll, { passive: true })
+      // fallback: if scroll doesn't reach in 500ms, clear focus anyway
+      setTimeout(() => {
+        if (!removed) {
+          removed = true
+          try { if (containerRef.current) containerRef.current.blur() } catch {}
+          try { if (containerRef.current) containerRef.current.removeEventListener('scroll', onScroll) } catch {}
+        }
+      }, 500)
+    }
   }
 
   return (
     <ShaderBackground>
-      <Header />
+  <Header onNavigateTo={isDesktop ? scrollToId : undefined} />
 
       {/* Right-side dots nav */}
       <nav className="fixed top-0 right-0 h-screen flex flex-col justify-center z-40 p-4">
@@ -130,7 +157,7 @@ export default function ShaderShowcase() {
 
       {/* Scroll container: only the content scrolls while ShaderBackground remains fixed on desktop; mobile falls back to normal flow */}
       {isDesktop ? (
-  <div ref={containerRef} className="relative z-30 h-screen overflow-y-auto snap-y snap-mandatory hide-native-scrollbar">
+  <div ref={containerRef} className="relative z-20 h-screen overflow-y-auto snap-y snap-mandatory hide-native-scrollbar">
           {/* spacer so the hero (overlay) is the only visible thing on first load */}
           <section id="hero-spacer" className="h-screen snap-start" aria-hidden />
 

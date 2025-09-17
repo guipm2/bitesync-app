@@ -4,23 +4,67 @@ import { useState } from 'react'
 import Image from 'next/image'
 import MotionButton from './ui/motion-button'
 
-export default function Header() {
+type HeaderProps = { onNavigateTo?: (id: string) => void }
+
+export default function Header({ onNavigateTo }: HeaderProps) {
   const [open, setOpen] = useState(false)
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6 bg-transparent">
       {/* Logo */}
       <div className="flex items-center">
-        <a href="#hero-spacer" aria-label="BiteSync home">
-          <Image src="/logo.png" alt="BiteSync" width={140} height={40} priority className="object-contain" />
+        <a
+          href="#hero-spacer"
+          aria-label="BiteSync home"
+          onClick={(e) => {
+            if (onNavigateTo) {
+              e.preventDefault()
+              onNavigateTo('hero-spacer')
+            }
+          }}
+        >
+          <Image src="/logo.png" alt="BiteSync" width={36} height={11} priority className="object-contain filter invert brightness-150" />
         </a>
       </div>
 
       {/* Navigation - hidden on small screens */}
       <nav className="hidden md:flex items-center space-x-2">
-        <a href="#diferencial" className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200">Diferencial</a>
-        <a href="#precos" className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200">Preços</a>
-        <a href="#faq" className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200">FAQ</a>
+        <a
+          href="#diferencial"
+          onClick={(e) => {
+            if (onNavigateTo) {
+              e.preventDefault()
+              onNavigateTo('diferencial')
+            }
+          }}
+          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
+        >
+          Diferencial
+        </a>
+        <a
+          href="#precos"
+          onClick={(e) => {
+            if (onNavigateTo) {
+              e.preventDefault()
+              onNavigateTo('precos')
+            }
+          }}
+          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
+        >
+          Preços
+        </a>
+        <a
+          href="#faq"
+          onClick={(e) => {
+            if (onNavigateTo) {
+              e.preventDefault()
+              onNavigateTo('faq')
+            }
+          }}
+          className="text-white/80 hover:text-white text-xs font-light px-3 py-2 rounded-full hover:bg-white/10 transition-all duration-200"
+        >
+          FAQ
+        </a>
       </nav>
 
       {/* Mobile menu button and Login group */}
@@ -45,9 +89,42 @@ export default function Header() {
       {/* Mobile dropdown */}
       {open && (
         <div className="absolute right-4 top-full mt-2 w-48 bg-black/60 rounded-lg p-3 backdrop-blur-md z-50 md:hidden">
-          <a href="#diferencial" className="block px-3 py-2 text-white/90 rounded">Diferencial</a>
-          <a href="#precos" className="block px-3 py-2 text-white/90 rounded">Preços</a>
-          <a href="#faq" className="block px-3 py-2 text-white/90 rounded">FAQ</a>
+          <a
+            href="#diferencial"
+            onClick={(e) => {
+              if (onNavigateTo) {
+                e.preventDefault()
+                onNavigateTo('diferencial')
+              }
+            }}
+            className="block px-3 py-2 text-white/90 rounded"
+          >
+            Diferencial
+          </a>
+          <a
+            href="#precos"
+            onClick={(e) => {
+              if (onNavigateTo) {
+                e.preventDefault()
+                onNavigateTo('precos')
+              }
+            }}
+            className="block px-3 py-2 text-white/90 rounded"
+          >
+            Preços
+          </a>
+          <a
+            href="#faq"
+            onClick={(e) => {
+              if (onNavigateTo) {
+                e.preventDefault()
+                onNavigateTo('faq')
+              }
+            }}
+            className="block px-3 py-2 text-white/90 rounded"
+          >
+            FAQ
+          </a>
           <a href="/auth/login" className="block px-3 py-2 text-white/90 rounded">Login</a>
         </div>
       )}
