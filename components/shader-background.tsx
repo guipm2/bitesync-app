@@ -37,7 +37,8 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
   }, [reduce])
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-black relative overflow-hidden">
+    // keep overflow hidden on desktop (to pin background) but allow visible overflow on small screens
+    <div ref={containerRef} className="min-h-screen bg-black relative overflow-visible md:overflow-hidden">
       {/* SVG Filters */}
   <svg className="absolute inset-0 w-0 h-0 pointer-events-none">
         <defs>

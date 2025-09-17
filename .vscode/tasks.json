@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Typecheck Next.js build",
+			"type": "shell",
+			"command": "npm run -s build",
+			"group": "build"
+		},
+		{
+			"label": "Typecheck Next.js build",
+			"type": "shell",
+			"command": "npm run -s build",
+			"group": "build"
+		},
+		{
+			"label": "Run Lint",
+			"type": "shell",
+			"command": "npm run -s lint",
+			"group": "build"
+		},
+		{
+			"label": "Build to validate mobile fixes",
+			"type": "shell",
+			"command": "npm run -s build",
+			"group": "build"
+		},
+		{
+			"label": "Build after Diferencial inline mobile",
+			"type": "shell",
+			"command": "npm run -s build",
+			"group": "build"
+		}
+	]
+}
